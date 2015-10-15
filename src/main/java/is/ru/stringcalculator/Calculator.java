@@ -1,4 +1,4 @@
-package is.ru.stringcalculator;
+ package is.ru.stringcalculator;
 
 public class Calculator {
 
@@ -6,9 +6,11 @@ public class Calculator {
 		if(text.equals("")){
 			return 0;
 		}
-		else if(text.contains(",")){
-			return sum(splitNumbers(text));
+		
+		else if((text.contains("\n"))||(text.contains(","))){
+			return sum(splitNumbersMoreDelimiters(text));
 		}
+		
 		else
 			return 1;
 	}
@@ -28,7 +30,8 @@ public class Calculator {
 		}
 		return total;
     }
-
-
-
+	
+	    private static String[] splitNumbersMoreDelimiters(String numbers){
+	    return numbers.split(",|\\n");
+	}   
 }
