@@ -9,6 +9,21 @@ public class Calculator {
 		if(text.equals("")){
 			return 0;
 		}
+		/*else if(text.contains("-")){
+			String[] allnumbers = splitNumbers(text);
+			for(String number : allnumbers){
+				if(toInt(number) > 0){
+					int total = 0;
+					total += toInt(number);
+					return total;
+				}
+				else if(toInt(number) < 0){
+					throw new RuntimeException("Negatives are not allowed: " + number );
+					String[] negativenumbers = negativenumbers + number;
+					return negativenumbers;
+				}
+			}
+		}*/
 
 		else if(text.startsWith("//")){
 			return sum(splitNumbersDifferentDelimiter(text));
@@ -33,20 +48,23 @@ public class Calculator {
     private static int sum(String[] numbers){
  	    int total = 0;
         for(String number : numbers){
+        	if(toInt(number) > 1000){
+        		number = "0";
+        	}
 		    total += toInt(number);
 		}
 		return total;
-    }
-	
+	}	
+
 	private static String[] splitNumbersMoreDelimiters(String numbers){
 	    return numbers.split(",|\\n");
 	} 
 
 	private static String[] splitNumbersDifferentDelimiter(String text){
-	    	Matcher m = Pattern.compile("//(.)\n(.*)").matcher(text);
-			m.matches();	
-			String delimiter = m.group(1);
-			String numbers = m.group(2);
+	    Matcher m = Pattern.compile("//(.)\n(.*)").matcher(text);
+		m.matches();	
+		String delimiter = m.group(1);
+		String numbers = m.group(2);
 	    return numbers.split(delimiter);
 	}   
 }
