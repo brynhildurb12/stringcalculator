@@ -38,10 +38,31 @@ public class CalculatorTest {
     public void testDifferentDelimiter(){
     	assertEquals(3, Calculator.add("//;\n1;2"));
     }
+    
+    @Test
+    public void testNegativeNumber(){
+    	try{
+    		Calculator.add("-1,2");
+    		//fail("Exception expected.");
+    	}
+    	catch(RuntimeException ex){
+    		assertEquals("Negatives are not allowed: -1", ex.getMessage());
+    	}
+    }
+
+    @Test
+    public void testMultipleNegativeNumber(){
+    	try{
+    		Calculator.add("2,-4,3,-5");
+    		//fail("Exception expected.");
+    	}
+    	catch(RuntimeException ex){
+    		assertEquals("Negatives are not allowed: -4,-5", ex.getMessage());
+    	}
+    }
 
     @Test
     public void testNumbersBiggerThan1000NotAllowed(){
     	assertEquals(2, Calculator.add("1001,2"));
     }
-
 }

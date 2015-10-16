@@ -2,6 +2,8 @@
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Calculator {
 
@@ -9,21 +11,11 @@ public class Calculator {
 		if(text.equals("")){
 			return 0;
 		}
-		/*else if(text.contains("-")){
-			String[] allnumbers = splitNumbers(text);
-			for(String number : allnumbers){
-				if(toInt(number) > 0){
-					int total = 0;
-					total += toInt(number);
-					return total;
-				}
-				else if(toInt(number) < 0){
-					throw new RuntimeException("Negatives are not allowed: " + number );
-					String[] negativenumbers = negativenumbers + number;
-					return negativenumbers;
-				}
-			}
-		}*/
+		else if(text.contains("-")){
+
+			noNegativeNumbersAllowed(text);
+			return 0;
+		}
 
 		else if(text.startsWith("//")){
 			return sum(splitNumbersDifferentDelimiter(text));
@@ -66,5 +58,18 @@ public class Calculator {
 		String delimiter = m.group(1);
 		String numbers = m.group(2);
 	    return numbers.split(delimiter);
-	}   
+	}  
+
+	private static void noNegativeNumbersAllowed(String text) throws RuntimeException{
+	 String[] allnumbers = splitNumbers(text); 	
+			List<String> negativenumbers = new ArrayList<>();
+			for(String number : allnumbers){
+				if(toInt(number) < 0){
+						negativenumbers.add(number);
+					}
+				}
+				String listofnegatives = String.join(",", negativenumbers);
+				throw new RuntimeException("Negatives are not allowed: " + listofnegatives);
+	} 
+
 }
