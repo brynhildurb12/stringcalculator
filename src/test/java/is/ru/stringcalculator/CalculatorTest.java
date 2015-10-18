@@ -16,7 +16,7 @@ public class CalculatorTest {
 
 	@Test
 	public void testOneNumber() {
-		assertEquals(1, Calculator.add("1"));
+		assertEquals(2, Calculator.add("2"));
 	}
 
 	@Test
@@ -65,4 +65,10 @@ public class CalculatorTest {
     public void testNumbersBiggerThan1000NotAllowed(){
     	assertEquals(2, Calculator.add("1001,2"));
     }
+/*
+    @Test
+    public void testDelimiterOfAnyLength(){
+    	assertEquals(3, Calculator.add("//***\n1***2"));
+    }*/
+   
 }

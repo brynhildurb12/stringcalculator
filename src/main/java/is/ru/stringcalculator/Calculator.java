@@ -18,6 +18,15 @@ public class Calculator {
 		}
 
 		else if(text.startsWith("//")){
+
+			/*Matcher m = Pattern.compile("//((.)|(\\[.+\\]))\n(.*)").matcher(text);
+			m.matches();
+			//String delimiter = m.group(1);
+			String anyLengthDelimiter = m.group(2);
+			if(!anyLengthDelimiter.isEmpty()){
+				String numbersWithLongDelimiter = m.group(4);
+				return sum(numbersWithLongDelimiter.split(anyLengthDelimiter));
+			}	*/
 			return sum(splitNumbersDifferentDelimiter(text));
 		}
 		
@@ -26,7 +35,7 @@ public class Calculator {
 		}
 
 		else
-			return 1;
+			return toInt(text);
 	}
 
 	private static int toInt(String number){
@@ -54,6 +63,7 @@ public class Calculator {
 
 	private static String[] splitNumbersDifferentDelimiter(String text){
 	    Matcher m = Pattern.compile("//(.)\n(.*)").matcher(text);
+	    //Matcher m = Pattern.compile("//((.)|(\\[.+\\]))\n(.*)").matcher(text);
 		m.matches();	
 		String delimiter = m.group(1);
 		String numbers = m.group(2);
@@ -61,15 +71,15 @@ public class Calculator {
 	}  
 
 	private static void noNegativeNumbersAllowed(String text) throws RuntimeException{
-	 String[] allnumbers = splitNumbers(text); 	
-			List<String> negativenumbers = new ArrayList<>();
-			for(String number : allnumbers){
-				if(toInt(number) < 0){
-						negativenumbers.add(number);
-					}
-				}
-				String listofnegatives = String.join(",", negativenumbers);
-				throw new RuntimeException("Negatives are not allowed: " + listofnegatives);
+	 	String[] allnumbers = splitNumbers(text); 	
+		List<String> negativenumbers = new ArrayList<>();
+		for(String number : allnumbers){
+			if(toInt(number) < 0){
+				negativenumbers.add(number);
+			}
+		}
+		String listofnegatives = String.join(",", negativenumbers);
+		throw new RuntimeException("Negatives are not allowed: " + listofnegatives);
 	} 
 
 }
